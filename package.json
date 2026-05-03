@@ -2,7 +2,7 @@
   "name": "opencode-agent",
   "displayName": "OpenCode Agent",
   "description": "OpenCode Agent for VSCode",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "wenzewoo",
   "repository": {
     "type": "git",

@@ -2,7 +2,7 @@ import * as vscode from "vscode"
 import { getSelectionRef } from "../services/ref"
 import { appendPrompt, getTerminals } from "../services/terminal"
 
-export function registerAppendFileCommand(): vscode.Disposable {
+export function registerAppendSelectionCommand(): vscode.Disposable {
   return vscode.commands.registerCommand("opencode-agent.append-selection", async (uri?: vscode.Uri) => {
     if (!uri) return
 
