@@ -1,6 +1,7 @@
 {
-  "opencode-agent.create.title": "创建新终端",
-  "opencode-agent.append-path.title": "追加文件到终端",
+  "opencode-agent.create.title": "创建新会话",
+  "opencode-agent.continue.title": "继续上一次会话",
+  "opencode-agent.append-path.title": "追加文件到会话",
   "opencode-agent.attach.title": "附加到远程终端",
   "opencode-agent.submenu.label": "OpenCode 代理"
 }

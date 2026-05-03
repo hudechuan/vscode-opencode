@@ -11,21 +11,51 @@ export function initTerminalManager(context: vscode.ExtensionContext): void {
   )
 }
 
+interface TerminalOptions {
+  shellArgs: string[]
+  port?: number
+  name?: string
+  cwd?: string
+  env?: Record<string, string>
+}
+
+function mergeOptions(opts: TerminalOptions): TerminalOptions & Required<Pick<TerminalOptions, 'shellArgs'>> {
+  return {
+    shellArgs: opts.shellArgs,
+    port: opts.port,
+    name: opts.name ?? '',
+    cwd: opts.cwd ?? '',
+    env: opts.env ?? {},
+  }
+}
+
 export function createTerminal(context: vscode.ExtensionContext): vscode.Terminal {
   const port = Math.floor(Math.random() * 50000) + 10000
+  return createTerminalWithArgs(context, ['--port', String(port)], port)
+}
+
+export function createTerminalWithArgs(context: vscode.ExtensionContext, shellArgs: string[], port: number): vscode.Terminal {
+  return createTerminalAdvanced(context, { shellArgs, port })
+}
+
+export function createTerminalAdvanced(context: vscode.ExtensionContext, opts: TerminalOptions): vscode.Terminal {
+  const merged = mergeOptions(opts)
+  const port = merged.port ?? Math.floor(Math.random() * 50000) + 10000
+  const cwd = merged.cwd || vscode.workspace.workspaceFolders?.[0]?.uri.fsPath
   const viewColumn = findOpenCodeColumn() ?? findUnusedColumn() ?? vscode.ViewColumn.Beside
   const options: vscode.TerminalOptions = {
-    name: `${TERMINAL_TITLE}[${port}]`,
+    name: merged.name || `${TERMINAL_TITLE}[${port}]`,
     shellPath: resolveOpenCodeBinary(),
-    shellArgs: ['--port', String(port)],
+    shellArgs: merged.shellArgs,
     location: { viewColumn },
     isTransient: true,
-    cwd: vscode.workspace.workspaceFolders?.[0]?.uri.fsPath,
+    cwd: cwd,
     env: {
       OPENCODE_CALLER: "vscode",
       OPENCODE_EXTENSION_PROTOCOL: 'http:',
       OPENCODE_EXTENSION_HOSTNAME: 'localhost',
       OPENCODE_EXTENSION_PORT: String(port),
+      ...merged.env,
     },
     iconPath: {
       light: vscode.Uri.file(context.asAbsolutePath("resources/logo-light.svg")),
@@ -40,34 +70,21 @@ export function createTerminal(context: vscode.ExtensionContext): vscode.Termina
 
 export function attachTerminal(context: vscode.ExtensionContext, remoteUrl: URL): vscode.Terminal {
   const cwd = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath
-  const viewColumn = findOpenCodeColumn() ?? findUnusedColumn() ?? vscode.ViewColumn.Beside
   let remotePwd: string = ''
   if (remoteUrl.searchParams) {
     remotePwd = remoteUrl.searchParams.get("pwd") ?? ''
   }
-  const options: vscode.TerminalOptions = {
+  return createTerminalAdvanced(context, {
     name: `${TERMINAL_TITLE}[${remoteUrl.host}]`,
-    shellPath: resolveOpenCodeBinary(),
     shellArgs: ['attach', `${remoteUrl.protocol}//${remoteUrl.hostname}:${remoteUrl.port}`, '--dir', cwd!],
-    location: { viewColumn },
-    isTransient: true,
     cwd: cwd,
     env: {
-      OPENCODE_CALLER: "vscode",
       OPENCODE_EXTENSION_PROTOCOL: remoteUrl.protocol,
       OPENCODE_EXTENSION_HOSTNAME: remoteUrl.hostname,
       OPENCODE_EXTENSION_PORT: String(remoteUrl.port),
       OPENCODE_SERVER_PASSWORD: String(remotePwd)
     },
-    iconPath: {
-      light: vscode.Uri.file(context.asAbsolutePath("resources/logo-light.svg")),
-      dark: vscode.Uri.file(context.asAbsolutePath("resources/logo-dark.svg")),
-    }
-  }
-  const terminal = vscode.window.createTerminal(options)
-  // terminal.sendText(`opencode attach ${remoteUrl.protocol}//${remoteUrl.hostname}:${remoteUrl.port} --dir ${cwd}`)
-  void vscode.commands.executeCommand("workbench.action.lockEditorGroup");
-  return terminal
+  })
 }
 
 

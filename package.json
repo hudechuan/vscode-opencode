@@ -40,6 +40,10 @@
       {
         "command": "opencode-agent.attach",
         "title": "%opencode-agent.attach.title%"
+      },
+      {
+        "command": "opencode-agent.continue",
+        "title": "%opencode-agent.continue.title%"
       }
     ],
     "menus": {
@@ -64,6 +68,9 @@
       "opencode-agent.submenu": [
         {
           "command": "opencode-agent.create"
+        },
+        {
+          "command": "opencode-agent.continue"
         },
         {
           "command": "opencode-agent.append-path"
