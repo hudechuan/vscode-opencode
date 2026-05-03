@@ -11,7 +11,7 @@ export function registerAppendPathCommand(context: vscode.ExtensionContext): vsc
       return
     }
     if (terminals.size === 1) {
-      await appendPrompt(text, [...terminals.keys()][0])
+      await appendPrompt(`${text} `, [...terminals.keys()][0])
       return
     }
     const picks = [...terminals.keys()].map((name) => ({ label: name }))
@@ -19,7 +19,7 @@ export function registerAppendPathCommand(context: vscode.ExtensionContext): vsc
       placeHolder: vscode.l10n.t("Select terminal to send path"),
     })
     if (selected) {
-      await appendPrompt(text, selected.label)
+      await appendPrompt(`${text} `, selected.label)
     }
   })
 }
