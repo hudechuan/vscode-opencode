@@ -6,5 +6,8 @@
   "Continue Last OpenCode Session": "继续上一次 OpenCode 会话",
   "Attach to Remote OpenCode Session": "附加到远程 OpenCode 会话",
   "Choose OpenCode Startup Type": "选择 OpenCode 启动类型",
-  "No OpenCode Terminal Found": "未找到 OpenCode 终端，请先启动"
+  "No OpenCode Terminal Found": "未找到 OpenCode 终端，请先启动",
+  "No sessions found in current workspace": "在当前工作区未找到历史的 OpenCode 会话",
+  "Loading sessions...": "正在加载会话...",
+  "Choose History OpenCode Session": "选择历史的 OpenCode 会话"
 }

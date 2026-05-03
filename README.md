@@ -2,7 +2,7 @@
 
 A VS Code extension that integrates [OpenCode](https://opencode.ai) terminal into your editor, enabling seamless AI-assisted development workflows.
 
-[![VS Code Marketplace](https://img.shields.io/badge/VS%20Code-v0.0.3-blue)](https://marketplace.visualstudio.com/items?itemName=wenzewoo.opencode-agent)
+[![VS Code Marketplace](https://img.shields.io/badge/VS%20Code-v0.0.5-blue)](https://marketplace.visualstudio.com/items?itemName=wenzewoo.opencode-agent)
 [![License MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 ## Features
@@ -20,6 +20,7 @@ A VS Code extension that integrates [OpenCode](https://opencode.ai) terminal int
 ### Session Management
 - **Create New Session** — Start a fresh OpenCode session
 - **Continue Last Session** — Resume previous session
+- **Choose History Session** — Select from previous sessions with loading progress indicator
 - **Attach to Remote** — Connect to remote OpenCode session
 
 ## Requirements

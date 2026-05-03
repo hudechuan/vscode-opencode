@@ -6,5 +6,8 @@
   "Continue Last OpenCode Session": "Continue Last OpenCode Session",
   "Attach to Remote OpenCode Session": "Attach to Remote OpenCode Session",
   "Choose OpenCode Startup Type": "Choose OpenCode Startup Type",
-  "No OpenCode Terminal Found": "No OpenCode Terminal Found"
+  "No OpenCode Terminal Found": "No OpenCode Terminal Found",
+  "Choose History OpenCode Session": "Choose History OpenCode Session",
+  "No sessions found in current workspace": "No sessions found in current workspace",
+  "Loading sessions...": "Loading sessions..."
 }

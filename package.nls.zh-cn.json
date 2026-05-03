@@ -3,6 +3,7 @@
   "opencode-agent.create.title": "创建新 OpenCode 会话",
   "opencode-agent.continue.title": "继续上一次 OpenCode 会话",
   "opencode-agent.attach.title": "附加到远程 OpenCode 会话",
+  "opencode-agent.choose.title": "选择历史的 OpenCode 会话",
   "opencode-agent.append-file.title": "添加到 OpenCode 会话",
   "opencode-agent.append-selection.title": "添加选中行到 OpenCode 会话",
   "opencode-agent.review-selection.title": "在 OpenCode 会话中审查选中行"

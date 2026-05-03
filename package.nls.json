@@ -3,6 +3,7 @@
   "opencode-agent.create.title": "Create New OpenCode Session",
   "opencode-agent.continue.title": "Continue Last OpenCode Session",
   "opencode-agent.attach.title": "Attach to Remote OpenCode Session",
+  "opencode-agent.choose.title": "Choose History OpenCode Session",
   "opencode-agent.append-file.title": "Add File to OpenCode Session",
   "opencode-agent.append-selection.title": "Add Selection to OpenCode Session",
   "opencode-agent.review-selection.title": "Review Selection in OpenCode Session"

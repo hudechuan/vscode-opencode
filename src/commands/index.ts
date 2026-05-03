@@ -7,6 +7,7 @@ import { registerContinueCommand } from "./continue"
 import { registerCreateCommand } from "./create"
 import { registerReviewSelectionCommand } from "./review-selection"
 import { registerStartCommand } from "./start"
+import { registerChooseCommand } from "./choose"
 
 export function registerCommands(context: vscode.ExtensionContext): void {
   initTerminalManager(context)
@@ -16,10 +17,11 @@ export function registerCommands(context: vscode.ExtensionContext): void {
     registerAppendFileCommand(),
     registerAppendSelectionCommand(),
     registerAttachCommand(context),
+    registerChooseCommand(context),
     registerContinueCommand(context),
     registerReviewSelectionCommand()
   )
 }
 
-export { registerStartCommand, registerAppendFileCommand, registerAttachCommand, registerContinueCommand, registerCreateCommand, registerReviewSelectionCommand }
+export { registerStartCommand, registerAppendFileCommand, registerAppendSelectionCommand, registerAttachCommand, registerContinueCommand, registerCreateCommand, registerReviewSelectionCommand, registerChooseCommand as registerChooseSessionCommand }
 

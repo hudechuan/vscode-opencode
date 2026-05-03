@@ -1,5 +1,7 @@
-import { execSync } from "node:child_process"
+import * as vscode from "vscode"
+import { execSync, spawn } from "node:child_process"
 import { getCliPath } from "./config"
+
 
 export interface TUIEndpoint {
     protocol: 'http:' | 'https:'
@@ -76,4 +78,28 @@ function which(name: string): string {
         if (winResult) return winResult.split(/\r?\n/)[0]
     }
     return ""
+}
+
+
+export interface Session {
+    id: string
+    title: string
+    updated: number
+    created: number
+    projectId: string
+    directory: string
+}
+
+export async function listWorkspaceSessions(): Promise<Session[]> {
+    const opencodeBin = resolveOpenCodeBinary()
+    const cwd = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath
+    return new Promise((resolve) => {
+        const proc = spawn(opencodeBin, ["session", "list", "--format", "json"], { shell: true, cwd })
+        let stdout = ""
+        proc.stdout?.on("data", (data) => { stdout += data.toString() })
+        proc.on("close", () => {
+            try { resolve(JSON.parse(stdout)) }
+            catch { resolve([]) }
+        })
+    })
 }

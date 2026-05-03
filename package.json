@@ -2,7 +2,7 @@
   "name": "opencode-agent",
   "displayName": "OpenCode Agent",
   "description": "OpenCode Agent for VSCode",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publisher": "wenzewoo",
   "repository": {
     "type": "git",
@@ -76,6 +76,14 @@
       {
         "command": "opencode-agent.continue",
         "title": "%opencode-agent.continue.title%",
+        "icon": {
+          "light": "resources/logo-light.svg",
+          "dark": "resources/logo-dark.svg"
+        }
+      },
+      {
+        "command": "opencode-agent.choose",
+        "title": "%opencode-agent.choose.title%",
         "icon": {
           "light": "resources/logo-light.svg",
           "dark": "resources/logo-dark.svg"
