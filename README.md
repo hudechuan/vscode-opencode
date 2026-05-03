@@ -1,4 +1,4 @@
-# OpenCode Terminal
+# OpenCode Agent
 
 A VS Code extension that integrates [OpenCode](https://opencode.ai) terminal into your editor, enabling seamless AI-assisted development workflows.
 
@@ -10,12 +10,11 @@ A VS Code extension that integrates [OpenCode](https://opencode.ai) terminal int
 ### Terminal Integration
 - **Create OpenCode Terminal** — Launch the OpenCode terminal directly from VS Code with intelligent tab placement
 - **Multiple Terminals** — Support for multiple concurrent OpenCode terminals with easy switching
-- **Transient Terminals** — Lightweight terminal instances that don't persist after closing
 - **Smart Tab Placement** — Automatically finds existing OpenCode tabs or opens in a new column
 
 ### File Reference
 - **Append to Chat** — Send file paths, selections, or editor content to OpenCode for discussion
-- **Multi-Terminal Support** — When multiple terminals exist, select which one to send to
+- **Attach to Terminal** — Attach current file or selection to a running terminal session
 - **Context Menus** — Right-click on files or editor to access OpenCode Terminal options
 - **Editor Title Bar** — Quick access button in the editor title bar
 
@@ -36,16 +35,18 @@ Or install via [VS Code Marketplace](https://marketplace.visualstudio.com/items?
 
 ### Commands
 
-| Command | Description | Keybinding |
-|---------|-------------|------------|
-| `OpenCode Terminal: Create` | Create new OpenCode terminal | `Cmd/Ctrl + Shift + P` → "Create" |
-| `OpenCode Terminal: Append to Chat` | Send file/selection to chat | `Cmd/Ctrl + Shift + P` → "Append" |
+| Command | Description |
+|---------|-------------|
+| `OpenCode Terminal: Create` | Create new OpenCode terminal |
+| `OpenCode Terminal: Append to Chat` | Send file/selection to chat |
+| `OpenCode Terminal: Attach` | Attach file/selection to terminal |
 
 ### Context Menus
 
 Right-click on files in Explorer or editor to access:
 - **Create OpenCode Terminal** — Open a new terminal
 - **Append to OpenCode Chat** — Send file path to existing terminal
+- **Attach to OpenCode Terminal** — Attach file to running terminal
 
 ### Editor Title Bar
 

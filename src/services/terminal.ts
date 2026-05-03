@@ -1,7 +1,5 @@
 import * as vscode from "vscode"
-import { appendTuiPrompt, resolveOpenCodeBinary, showTuiToast } from "./opencode"
-
-
+import { appendTuiPrompt, resolveOpenCodeBinary, showTuiToast, TUIEndpoint } from "./opencode"
 
 const TERMINAL_TITLE: string = 'OpenCode'
 const terminals: Map<string, vscode.Terminal> = new Map()
@@ -23,7 +21,12 @@ export function createTerminal(context: vscode.ExtensionContext): vscode.Termina
     location: { viewColumn },
     isTransient: true,
     cwd: vscode.workspace.workspaceFolders?.[0]?.uri.fsPath,
-    env: { OPENCODE_CALLER: "vscode", OPENCODE_PORT: String(port) },
+    env: {
+      OPENCODE_CALLER: "vscode",
+      OPENCODE_EXTENSION_PROTOCOL: 'http:',
+      OPENCODE_EXTENSION_HOSTNAME: 'localhost',
+      OPENCODE_EXTENSION_PORT: String(port),
+    },
     iconPath: {
       light: vscode.Uri.file(context.asAbsolutePath("resources/logo-light.svg")),
       dark: vscode.Uri.file(context.asAbsolutePath("resources/logo-dark.svg")),
@@ -33,6 +36,40 @@ export function createTerminal(context: vscode.ExtensionContext): vscode.Termina
   void vscode.commands.executeCommand("workbench.action.lockEditorGroup");
   return terminal
 }
+
+
+export function attachTerminal(context: vscode.ExtensionContext, remoteUrl: URL): vscode.Terminal {
+  const cwd = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath
+  const viewColumn = findOpenCodeColumn() ?? findUnusedColumn() ?? vscode.ViewColumn.Beside
+  let remotePwd: string = ''
+  if (remoteUrl.searchParams) {
+    remotePwd = remoteUrl.searchParams.get("pwd") ?? ''
+  }
+  const options: vscode.TerminalOptions = {
+    name: `${TERMINAL_TITLE}[${remoteUrl.host}]`,
+    shellPath: resolveOpenCodeBinary(),
+    shellArgs: ['attach', `${remoteUrl.protocol}//${remoteUrl.hostname}:${remoteUrl.port}`, '--dir', cwd!],
+    location: { viewColumn },
+    isTransient: true,
+    cwd: cwd,
+    env: {
+      OPENCODE_CALLER: "vscode",
+      OPENCODE_EXTENSION_PROTOCOL: remoteUrl.protocol,
+      OPENCODE_EXTENSION_HOSTNAME: remoteUrl.hostname,
+      OPENCODE_EXTENSION_PORT: String(remoteUrl.port),
+      OPENCODE_SERVER_PASSWORD: String(remotePwd)
+    },
+    iconPath: {
+      light: vscode.Uri.file(context.asAbsolutePath("resources/logo-light.svg")),
+      dark: vscode.Uri.file(context.asAbsolutePath("resources/logo-dark.svg")),
+    }
+  }
+  const terminal = vscode.window.createTerminal(options)
+  // terminal.sendText(`opencode attach ${remoteUrl.protocol}//${remoteUrl.hostname}:${remoteUrl.port} --dir ${cwd}`)
+  void vscode.commands.executeCommand("workbench.action.lockEditorGroup");
+  return terminal
+}
+
 
 function findOpenCodeColumn(): vscode.ViewColumn | undefined {
   for (const group of vscode.window.tabGroups.all) {
@@ -60,46 +97,41 @@ export function getTerminals(): Map<string, vscode.Terminal> {
   return terminals
 }
 
-function getTerminalPort(terminal?: vscode.Terminal): string | undefined {
-  // @ts-ignore
-  return terminal?.creationOptions.env?.["OPENCODE_PORT"]
+function getTerminal(terminalName?: string): vscode.Terminal | undefined {
+  if (!terminalName) return
+  return terminals.get(terminalName)
+}
+
+function getTerminalEndpoint(terminal: vscode.Terminal): TUIEndpoint {
+  return {
+    // @ts-ignore
+    protocol: terminal.creationOptions.env?.["OPENCODE_EXTENSION_PROTOCOL"],
+    // @ts-ignore
+    hostname: terminal.creationOptions.env?.["OPENCODE_EXTENSION_HOSTNAME"],
+    // @ts-ignore
+    port: terminal.creationOptions.env?.["OPENCODE_EXTENSION_PORT"],
+    // @ts-ignore
+    password: terminal.creationOptions.env?.["OPENCODE_SERVER_PASSWORD"],
+  }
 }
 
 export async function appendPrompt(text?: string, terminalName?: string): Promise<void> {
-  if (!text) return
-  if (terminalName) {
-    const target = terminals.get(terminalName)
-    const port = getTerminalPort(target)
-    if (port) {
-      await appendTuiPrompt(port, { text })
-      target?.show()
-    }
-    return
-  }
-  for (const [, target] of terminals) {
-    const port = getTerminalPort(target)
-    if (port) {
-      await appendTuiPrompt(port, { text })
+  if (!terminalName || !text) return
+  const target = getTerminal(terminalName)
+  if (target) {
+    const endpoint = getTerminalEndpoint(target);
+    await appendTuiPrompt(endpoint, { text }).then(() => {
+      showTuiToast(endpoint, { title: 'VSCode Extension', message: 'Apppend prompt successful', variant: 'info' })
       target.show()
-    }
+    })
   }
 }
 
 export async function showToast(title: string, message: string, variant: "info" | "success" | "warning" | "error", terminalName?: string): Promise<void> {
-  if (terminalName) {
-    const target = terminals.get(terminalName)
-    const port = getTerminalPort(target)
-    if (port) {
-      await showTuiToast(port, { title, message, variant })
-      target?.show()
-    }
-    return
-  }
-  for (const [, target] of terminals) {
-    const port = getTerminalPort(target)
-    if (port) {
-      await showTuiToast(port, { title, message, variant })
-      target.show()
-    }
+  const target = getTerminal(terminalName)
+  if (target) {
+    const endpoint = getTerminalEndpoint(target);
+    await showTuiToast(endpoint, { title, message, variant })
+    target.show()
   }
 }

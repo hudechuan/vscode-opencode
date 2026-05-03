@@ -1,3 +1,5 @@
 {
-  "Select terminal to send path": "选择要发送路径的终端"
+  "Select terminal to send path": "选择要发送路径的终端",
+  "Enter OpenCode server URL": "输入远程OpenCode服务地址",
+  "Protocol must be http or https": "协议只能是http或https"
 }

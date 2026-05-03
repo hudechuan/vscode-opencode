@@ -1,3 +1,5 @@
 {
-  "Select terminal to send path": "Select terminal to send path"
+  "Select terminal to send path": "Select terminal to send path",
+  "Enter OpenCode server URL": "Enter OpenCode server URL",
+  "Protocol must be http or https": "Protocol must be http or https"
 }
