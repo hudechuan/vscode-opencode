@@ -80,7 +80,7 @@
       }
     ],
     "configuration": {
-      "title": "OpenCode Terminal",
+      "title": "OpenCode Agent",
       "properties": {
         "opencode-agent.cliPath": {
           "type": "string",
