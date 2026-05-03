@@ -2,7 +2,7 @@
 
 A VS Code extension that integrates [OpenCode](https://opencode.ai) terminal into your editor, enabling seamless AI-assisted development workflows.
 
-[![VS Code Marketplace](https://img.shields.io/badge/VS%20Code-v0.0.2-blue)](https://marketplace.visualstudio.com/items?itemName=wenzewoo.opencode-agent)
+[![VS Code Marketplace](https://img.shields.io/badge/VS%20Code-v0.0.3-blue)](https://marketplace.visualstudio.com/items?itemName=wenzewoo.opencode-agent)
 [![License MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 ## Features
@@ -37,9 +37,10 @@ Or install via [VS Code Marketplace](https://marketplace.visualstudio.com/items?
 
 | Command | Description |
 |---------|-------------|
-| `OpenCode Terminal: Create` | Create new OpenCode terminal |
-| `OpenCode Terminal: Append to Chat` | Send file/selection to chat |
-| `OpenCode Terminal: Attach` | Attach file/selection to terminal |
+| `OpenCode Agent: Create` | Create new OpenCode terminal |
+| `OpenCode Agent: Continue` | Continue the last session |
+| `OpenCode Agent: Append to Chat` | Send file/selection to chat |
+| `OpenCode Agent: Attach` | Attach file/selection to terminal |
 
 ### Context Menus
 
