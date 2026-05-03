@@ -3,8 +3,8 @@ import { createTerminalWithArgs } from "../services/terminal"
 import { listWorkspaceSessions } from "../services/opencode"
 
 export function registerChooseCommand(context: vscode.ExtensionContext): vscode.Disposable {
-  return vscode.commands.registerCommand("opencode-agent.choose", async (_event, sessionId: string) => {
-    
+  return vscode.commands.registerCommand("opencode-agent.choose", async () => {
+
     const workspaceSessions = await vscode.window.withProgress({
       location: vscode.ProgressLocation.Notification,
       title: vscode.l10n.t("Loading sessions..."),

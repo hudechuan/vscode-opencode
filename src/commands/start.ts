@@ -1,7 +1,4 @@
 import * as vscode from "vscode"
-import { listWorkspaceSessions } from "../services/opencode"
-
-
 
 export function registerStartCommand(): vscode.Disposable {
     return vscode.commands.registerCommand("opencode-agent.start", async () => {
