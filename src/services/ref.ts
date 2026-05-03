@@ -1,7 +1,7 @@
 import * as vscode from "vscode"
 
 
-export function getRef(uri?: vscode.Uri): string | undefined {
+export function getSelectionRef(uri?: vscode.Uri): string | undefined {
   const activeEditor = vscode.window.activeTextEditor
   if (activeEditor) {
     const fileRef = getFileRef(activeEditor.document.uri)

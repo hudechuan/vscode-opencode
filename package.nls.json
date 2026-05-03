@@ -1,7 +1,9 @@
 {
-  "opencode-agent.create.title": "Create new session",
-  "opencode-agent.continue.title": "Continue last session",
-  "opencode-agent.append-path.title": "Append file to session",
-  "opencode-agent.attach.title": "Attach to remote session",
-  "opencode-agent.submenu.label": "OpenCode"
+  "opencode-agent.start.title": "Start OpenCode",
+  "opencode-agent.create.title": "Create New OpenCode Session",
+  "opencode-agent.continue.title": "Continue Last OpenCode Session",
+  "opencode-agent.attach.title": "Attach to Remote OpenCode Session",
+  "opencode-agent.append-file.title": "Add File to OpenCode Session",
+  "opencode-agent.append-selection.title": "Add Selection to OpenCode Session",
+  "opencode-agent.review-selection.title": "Review Selection in OpenCode Session"
 }

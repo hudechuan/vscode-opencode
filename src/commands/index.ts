@@ -1,21 +1,23 @@
 import type * as vscode from "vscode"
 import { initTerminalManager } from "../services/terminal"
-import { registerCreateCommand } from "./create"
-import { registerAppendPathCommand } from "./append-path"
+import { registerAppendFileCommand } from "./append-file"
 import { registerAttachCommand } from "./attach"
 import { registerContinueCommand } from "./continue"
+import { registerCreateCommand } from "./create"
+import { registerReviewSelectionCommand } from "./review-selection"
+import { registerStartCommand } from "./start"
 
 export function registerCommands(context: vscode.ExtensionContext): void {
   initTerminalManager(context)
   context.subscriptions.push(
+    registerStartCommand(),
     registerCreateCommand(context),
-    registerAppendPathCommand(context),
+    registerAppendFileCommand(),
     registerAttachCommand(context),
     registerContinueCommand(context),
+    registerReviewSelectionCommand()
   )
 }
 
-export { registerCreateCommand }
-export { registerAppendPathCommand }
-export { registerAttachCommand }
-export { registerContinueCommand }
+export { registerStartCommand, registerAppendFileCommand, registerAttachCommand, registerContinueCommand, registerCreateCommand, registerReviewSelectionCommand }
+

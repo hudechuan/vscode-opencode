@@ -1,5 +1,5 @@
-import {execSync} from "node:child_process"
-import {getCliPath} from "./config"
+import { execSync } from "node:child_process"
+import { getCliPath } from "./config"
 
 export interface TUIEndpoint {
     protocol: 'http:' | 'https:'
@@ -21,15 +21,29 @@ export interface TUIShowToast {
 export async function appendTuiPrompt(endpoint: TUIEndpoint, payload: TUIAppendPrompt): Promise<Response> {
     return fetch(`${endpoint.protocol}//${endpoint.hostname}:${endpoint.port}/tui/append-prompt`, {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
+    })
+}
+
+export async function clearTuiPrompt(endpoint: TUIEndpoint): Promise<Response> {
+    return fetch(`${endpoint.protocol}//${endpoint.hostname}:${endpoint.port}/tui/clear-prompt`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+    })
+}
+
+export async function submitTuiPrompt(endpoint: TUIEndpoint): Promise<Response> {
+    return fetch(`${endpoint.protocol}//${endpoint.hostname}:${endpoint.port}/tui/submit-prompt`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
     })
 }
 
 export async function showTuiToast(endpoint: TUIEndpoint, payload: TUIShowToast): Promise<Response> {
     return fetch(`${endpoint.protocol}//${endpoint.hostname}:${endpoint.port}/tui/show-toast`, {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
     })
 }
@@ -44,7 +58,7 @@ export function resolveOpenCodeBinary(): string {
 
 function execCommand(cmd: string): string {
     try {
-        return execSync(cmd, {encoding: "utf8", timeout: 5000}).trim()
+        return execSync(cmd, { encoding: "utf8", timeout: 5000 }).trim()
     } catch {
         return ""
     }

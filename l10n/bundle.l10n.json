@@ -1,5 +1,10 @@
 {
-  "Select terminal to send path": "Select terminal to send path",
+  "Select OpenCode Terminal": "Select OpenCode Terminal",
   "Enter OpenCode server URL": "Enter OpenCode server URL",
-  "Protocol must be http or https": "Protocol must be http or https"
+  "Protocol must be http or https": "Protocol must be http or https",
+  "Create New OpenCode Session": "Create New OpenCode Session",
+  "Continue Last OpenCode Session": "Continue Last OpenCode Session",
+  "Attach to Remote OpenCode Session": "Attach to Remote OpenCode Session",
+  "Choose OpenCode Startup Type": "Choose OpenCode Startup Type",
+  "No OpenCode Terminal Found": "No OpenCode Terminal Found"
 }

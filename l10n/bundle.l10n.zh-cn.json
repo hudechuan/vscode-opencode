@@ -1,5 +1,10 @@
 {
-  "Select terminal to send path": "选择要发送路径的终端",
-  "Enter OpenCode server URL": "输入远程OpenCode服务地址",
-  "Protocol must be http or https": "协议只能是http或https"
+  "Select OpenCode Terminal": "选择 OpenCode 终端",
+  "Enter OpenCode server URL": "输入远程 OpenCode 服务地址",
+  "Protocol must be http or https": "协议只能是http或https",
+  "Create New OpenCode Session": "创建新 OpenCode 会话",
+  "Continue Last OpenCode Session": "继续上一次 OpenCode 会话",
+  "Attach to Remote OpenCode Session": "附加到远程 OpenCode 会话",
+  "Choose OpenCode Startup Type": "选择 OpenCode 启动类型",
+  "No OpenCode Terminal Found": "未找到 OpenCode 终端，请先启动"
 }

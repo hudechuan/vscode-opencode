@@ -1,5 +1,5 @@
 import * as vscode from "vscode"
-import { appendTuiPrompt, resolveOpenCodeBinary, showTuiToast, TUIEndpoint } from "./opencode"
+import { appendTuiPrompt, clearTuiPrompt, resolveOpenCodeBinary, showTuiToast, submitTuiPrompt, TUIEndpoint } from "./opencode"
 
 const TERMINAL_TITLE: string = 'OpenCode'
 const terminals: Map<string, vscode.Terminal> = new Map()
@@ -132,13 +132,45 @@ function getTerminalEndpoint(terminal: vscode.Terminal): TUIEndpoint {
   }
 }
 
+export async function sendPrompt(text?: string, terminalName?: string): Promise<void> {
+  if (!terminalName || !text) return
+  const target = getTerminal(terminalName)
+  if (!target) return
+  const endpoint = getTerminalEndpoint(target);
+  await clearTuiPrompt(endpoint)
+  await appendTuiPrompt(endpoint, { text })
+  await submitTuiPrompt(endpoint)
+  target.show()
+}
+
 export async function appendPrompt(text?: string, terminalName?: string): Promise<void> {
   if (!terminalName || !text) return
   const target = getTerminal(terminalName)
   if (target) {
     const endpoint = getTerminalEndpoint(target);
     await appendTuiPrompt(endpoint, { text }).then(() => {
-      showTuiToast(endpoint, { title: 'VSCode Extension', message: 'Apppend prompt successful', variant: 'info' })
+      // showTuiToast(endpoint, { title: 'VSCode Extension', message: 'Apppend prompt successful', variant: 'info' })
+      target.show()
+    })
+  }
+}
+
+export async function clearPrompt(terminalName?: string): Promise<void> {
+  if (!terminalName) return
+  const target = getTerminal(terminalName)
+  if (target) {
+    const endpoint = getTerminalEndpoint(target);
+    await clearTuiPrompt(endpoint).then(() => { })
+  }
+}
+
+export async function submitPrompt(terminalName?: string): Promise<void> {
+  if (!terminalName) return
+  const target = getTerminal(terminalName)
+  if (target) {
+    const endpoint = getTerminalEndpoint(target);
+    await submitTuiPrompt(endpoint).then(() => {
+      // showTuiToast(endpoint, { title: 'VSCode Extension', message: 'Submit prompt successful', variant: 'info' })
       target.show()
     })
   }

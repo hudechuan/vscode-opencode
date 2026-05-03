@@ -26,6 +26,14 @@
   "contributes": {
     "commands": [
       {
+        "command": "opencode-agent.start",
+        "title": "%opencode-agent.start.title%",
+        "icon": {
+          "light": "resources/logo-light.svg",
+          "dark": "resources/logo-dark.svg"
+        }
+      },
+      {
         "command": "opencode-agent.create",
         "title": "%opencode-agent.create.title%",
         "icon": {
@@ -34,58 +42,76 @@
         }
       },
       {
-        "command": "opencode-agent.append-path",
-        "title": "%opencode-agent.append-path.title%"
+        "command": "opencode-agent.append-file",
+        "title": "%opencode-agent.append-file.title%",
+        "icon": {
+          "light": "resources/logo-light.svg",
+          "dark": "resources/logo-dark.svg"
+        }
+      },
+      {
+        "command": "opencode-agent.append-selection",
+        "title": "%opencode-agent.append-selection.title%",
+        "icon": {
+          "light": "resources/logo-light.svg",
+          "dark": "resources/logo-dark.svg"
+        }
+      },
+      {
+        "command": "opencode-agent.review-selection",
+        "title": "%opencode-agent.review-selection.title%",
+        "icon": {
+          "light": "resources/logo-light.svg",
+          "dark": "resources/logo-dark.svg"
+        }
       },
       {
         "command": "opencode-agent.attach",
-        "title": "%opencode-agent.attach.title%"
+        "title": "%opencode-agent.attach.title%",
+        "icon": {
+          "light": "resources/logo-light.svg",
+          "dark": "resources/logo-dark.svg"
+        }
       },
       {
         "command": "opencode-agent.continue",
-        "title": "%opencode-agent.continue.title%"
+        "title": "%opencode-agent.continue.title%",
+        "icon": {
+          "light": "resources/logo-light.svg",
+          "dark": "resources/logo-dark.svg"
+        }
       }
     ],
     "menus": {
       "editor/title": [
         {
-          "command": "opencode-agent.create",
+          "command": "opencode-agent.start",
           "group": "navigation"
         }
       ],
       "editor/context": [
         {
-          "submenu": "opencode-agent.submenu",
-          "group": "7_opencode"
+          "command": "opencode-agent.append-file",
+          "group": "opencode"
+        },
+        {
+          "command": "opencode-agent.append-selection",
+          "when": "editorHasSelection",
+          "group": "opencode"
+        },
+        {
+          "command": "opencode-agent.review-selection",
+          "when": "editorHasSelection",
+          "group": "opencode"
         }
       ],
       "explorer/context": [
         {
-          "submenu": "opencode-agent.submenu",
-          "group": "7_opencode"
-        }
-      ],
-      "opencode-agent.submenu": [
-        {
-          "command": "opencode-agent.create"
-        },
-        {
-          "command": "opencode-agent.continue"
-        },
-        {
-          "command": "opencode-agent.append-path"
-        },
-        {
-          "command": "opencode-agent.attach"
+          "command": "opencode-agent.append-file",
+          "group": "opencode"
         }
       ]
     },
-    "submenus": [
-      {
-        "id": "opencode-agent.submenu",
-        "label": "%opencode-agent.submenu.label%"
-      }
-    ],
     "configuration": {
       "title": "OpenCode Agent",
       "properties": {
